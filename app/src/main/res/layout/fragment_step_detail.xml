@@ -30,7 +30,13 @@
                 android:layout_height="match_parent"
                 app:controller_layout_id="@layout/custom_playback_control"
                 android:focusable="true" />
-
+            <!--><ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:srcCompat="@tools:sample/avatars" />
+            <!-->
         </FrameLayout>
 
         <TextView

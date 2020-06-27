@@ -71,13 +71,14 @@ public class StepDetailActivity extends AppCompatActivity implements View.OnClic
         Intent intent = getIntent();
         final Step step = intent.getParcelableExtra("Step");
         final int stepPosition = intent.getIntExtra("StepPosition",0);
+        final int recipePosition = intent.getIntExtra("RecipePosition",0);
         setStepPosition(stepPosition);
         setRecipePosition(recipePosition);
-        final int recipePosition = intent.getIntExtra("RecipePosition",0);
+
         assert step != null;
         Log.i("Ingredient in Fragment", step.getVideoURL());
         setStep(step);
-        //TODO: Add Fragment in the StepDetailActivity
+        // Add Fragment in the StepDetailActivity
         StepDetailFragment stepDetailFragment = StepDetailFragment.newInstance(step,stepPosition,recipePosition);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.step_detail_holder, stepDetailFragment);
@@ -92,6 +93,10 @@ public class StepDetailActivity extends AppCompatActivity implements View.OnClic
             previousButton.setOnClickListener((View.OnClickListener) this);
             nextButton = (Button) findViewById(R.id.button_next);
             nextButton.setText("Next");
+            Log.i("StepPosition",getStepPosition()+"");
+            Log.i("RecipePosition",recipePosition+"");
+            Log.i("Max Steps",(Recipes.getRecipes()[recipePosition].getSteps().size() - 1)+"");
+
             if (stepPosition == Recipes.getRecipes()[recipePosition].getSteps().size() - 1) {
                 nextButton.setVisibility(View.INVISIBLE);
             }

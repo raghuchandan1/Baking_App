@@ -18,12 +18,24 @@ import com.example.bakingapp.data.Recipes;
 import com.example.bakingapp.data.Step;
 import com.example.bakingapp.data.Ingredient;
 
+import java.util.List;
+
 public class RecipeDetailActivity extends AppCompatActivity implements RecipeDetailFragment.OnStepClickListener{
     private static boolean twoPane;
     private static Recipe recipe;
-    private static int recipePosition;
+    public static int recipePosition;
     private static int stepPosition;
     private static Step step;
+
+    public static String ingredientsText;
+
+    public static String getIngredientsText() {
+        return ingredientsText;
+    }
+
+    public static void setIngredientsText(String ingredientsText) {
+        RecipeDetailActivity.ingredientsText = ingredientsText;
+    }
 
     public static int getStepPosition() {
         return stepPosition;
@@ -64,6 +76,14 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     public static void setRecipe(Recipe recipe) {
         RecipeDetailActivity.recipe = recipe;
     }
+    //TODO: Add ingredients
+    public static String makeIngredientsText(List<Ingredient> ingredients) {
+        String text="";
+        for (Ingredient ingredient : ingredients) {
+            text+=ingredient.getQuantity()+" "+ingredient.getMeasure()+" "+ingredient.getIngredient()+System.getProperty("line.separator");
+        }
+        return text;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +93,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         final Recipe recipe = intent.getParcelableExtra("Recipe");
         final int recipePosition = intent.getIntExtra("RecipePosition",0);
         assert recipe != null;
+        setIngredientsText(makeIngredientsText(recipe.getIngredients()));
         Log.i("Ingredient in Fragment", recipe.getIngredients().get(0).getIngredient());
         setRecipe(recipe);
+        setRecipePosition(recipePosition);
         setTwoPane(findViewById(R.id.step_detail_fragment_holder)!=null);
         Log.i("Two Pane",isTwoPane()+"");
         if(isTwoPane()){
@@ -88,7 +110,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         }
         else{
             FrameLayout recipeDetailHolder = (FrameLayout) findViewById(R.id.recipe_detail_holder);
-            //TODO: Add Fragment in the StepDetailActivity
+            // Add Fragment in the StepDetailActivity
             RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().add(R.id.recipe_detail_holder, recipeDetailFragment).commit();
@@ -113,14 +135,14 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
             transaction.commit();
         }
         else{
-            // TODO: Add the player activity
+            //  Add the player activity
             Context context=this;
             Class destinationClass=StepDetailActivity.class;
             Intent intentToStart=new Intent(context,destinationClass);
             intentToStart.putExtra("Step",step);
             intentToStart.putExtra("StepPosition",stepPosition);
             Log.i("StepPosition",stepPosition+"");
-            intentToStart.putExtra("RecipePosition",recipePosition);
+            intentToStart.putExtra("RecipePosition",getRecipePosition());
             startActivity(intentToStart);
             Toast.makeText(this, "This step is selected"+step.getShortDescription(),Toast.LENGTH_LONG).show();
         }

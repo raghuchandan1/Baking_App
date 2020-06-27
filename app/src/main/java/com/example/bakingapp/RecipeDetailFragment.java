@@ -17,8 +17,8 @@ import com.example.bakingapp.data.Recipe;
 import com.example.bakingapp.data.Step;
 
 public class RecipeDetailFragment extends Fragment implements StepAdapter.StepAdapterOnClickHandler{
-    //TODO: Always handle in activity and based on width replace fragment or launch new activity
-    //TODO: Add for sharing between fragments(Not needed implement the Adapter's onClickHandler in the activity. There also replace or add the fragment based on the clicked step
+    // Always handle in activity and based on width replace fragment or launch new activity
+    // Add for sharing between fragments(Not needed implement the Adapter's onClickHandler in the activity. There also replace or add the fragment based on the clicked step
 
     OnStepClickListener mCallback;
     static Recipe recipe;
@@ -54,23 +54,23 @@ public class RecipeDetailFragment extends Fragment implements StepAdapter.StepAd
 
         TextView ingredientsDetailView = (TextView) rootView.findViewById(R.id.ingredient_detail_view);
         RecyclerView stepsView = (RecyclerView) rootView.findViewById(R.id.step_recycler_view);
-        //TODO: Implement clickHandler in Activity
+        // Implement clickHandler in Activity
         StepAdapter stepAdapter = new StepAdapter(this);
         stepAdapter.setSteps(recipe.getSteps());
         stepsView.setAdapter(stepAdapter);
         GridLayoutManager layoutManager=new GridLayoutManager(getContext(),1);
         stepsView.setLayoutManager(layoutManager);
 
-        ingredientsDetailView.setText("Ingredient 1");
+        ingredientsDetailView.setText(RecipeDetailActivity.getIngredientsText());
 
         return rootView;
     }
-    //TODO: For sharing implement this onClick in activity
+    // For sharing implement this onClick in activity
 
     @Override
     public void onClick(Step step, int stepPosition) {
-        //TODO: Handle on click of a Step
-        //TODO: Start the Step Detail Fragment
+        // Handle on click of a Step
+        // Start the Step Detail Fragment
         mCallback.onStepSelected(step,stepPosition);
     }
 

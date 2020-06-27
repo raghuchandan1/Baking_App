@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.net.URI;
 
@@ -51,8 +53,9 @@ public class StepDetailFragment extends Fragment{
     private PlaybackStateListener playbackStateListener;
     private SimpleExoPlayer player;
     private PlayerView playerView;
+    //private ImageView imageView;
 
-    // TODO: Rename parameter arguments, choose names that match
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String STEP_ARG = "Step";
     private static final String STEP_POS_ARG = "StepPosition";
@@ -85,10 +88,11 @@ public class StepDetailFragment extends Fragment{
         this.playbackPosition = playbackPosition;
     }
 
-    // TODO: Rename and change types of parameters
+
     private Step step;
     private static int stepPosition;
     private static int recipePosition;
+    public static String videoURL;
 
     public StepDetailFragment() {
         // Required empty public constructor
@@ -104,7 +108,7 @@ public class StepDetailFragment extends Fragment{
      *
      * @return A new instance of fragment StepDetailFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static StepDetailFragment newInstance(Step step, int stepPosition, int recipePosition) {
         StepDetailFragment fragment = new StepDetailFragment();
         Bundle args = new Bundle();
@@ -133,11 +137,16 @@ public class StepDetailFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_step_detail, container, false);
+        //imageView = (ImageView) rootView.findViewById(R.id.imageView);
         playerView = (PlayerView) rootView.findViewById(R.id.player_view);
         TextView descriptionTextView = (TextView) rootView.findViewById(R.id.description_view);
         FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.player_holder);
-        String videoURL = step.getVideoURL();
+        videoURL = step.getVideoURL();
+        String thumbnailURL = step.getThumbnailURL();
         playbackStateListener = new PlaybackStateListener();
+        if(videoURL.equals("")&&!thumbnailURL.equals("")){
+            videoURL = thumbnailURL;
+        }
         if(videoURL==null)
             Log.i("Video","Hello");
         else if(videoURL.equals("")) {
@@ -145,6 +154,12 @@ public class StepDetailFragment extends Fragment{
             playerView.setVisibility(View.GONE);
             frameLayout.setVisibility(View.GONE);
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            /*if (!thumbnailURL.equals("")) {
+                frameLayout.setVisibility(View.VISIBLE);
+                imageView.setVisibility(View.VISIBLE);
+                Log.i("Picasso Image",thumbnailURL);
+                Picasso.get().load(thumbnailURL).fit().centerCrop().into(imageView);
+            }*/
             //getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE);
         }
         else
@@ -182,14 +197,13 @@ public class StepDetailFragment extends Fragment{
 
         player = ExoPlayerFactory.newSimpleInstance(getActivity());
         playerView.setPlayer(player);
-        Uri mediaUri = Uri.parse(step.getVideoURL());
+        Uri mediaUri = Uri.parse(videoURL);
         MediaSource mediaSource = buildMediaSource(mediaUri);
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
-        if (player == null) {
-            player.prepare(mediaSource, false, false);
-            player.addListener(playbackStateListener);
-        }
+        player.prepare(mediaSource, false, false);
+        player.addListener(playbackStateListener);
+
     }
 
 
