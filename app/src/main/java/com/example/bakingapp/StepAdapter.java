@@ -11,16 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.data.Step;
 
+import java.util.List;
+
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder> {
 
-    Step[] steps;
+    List<Step> steps;
     private final StepAdapterOnClickHandler sClickHandler;
 
     public StepAdapter(StepAdapterOnClickHandler clickHandler){
         sClickHandler=clickHandler;
     }
     public interface StepAdapterOnClickHandler {
-        void onClick(Step step);
+        void onClick(Step step, int stepPosition);
     }
 
     @NonNull
@@ -36,15 +38,17 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull StepAdapter.StepViewHolder holder, int position) {
-        holder.stepsdescView.setText(steps[position].getShortDescription());
+        holder.stepsdescView.setText(steps.get(position).getShortDescription());
+        //holder.stepsdescView.setText("Steps"+position);
     }
 
     @Override
     public int getItemCount() {
         if(steps!=null)
-            return steps.length;
+            return steps.size();
         else
             return 0;
+        //return 10;
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -58,7 +62,17 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
         @Override
         public void onClick(View v) {
-            //TODO: Start the Step Detail Fragment
+            int adapterPosition=getAdapterPosition();
+            Step stepDetails=steps.get(adapterPosition);
+            sClickHandler.onClick(stepDetails,adapterPosition);
         }
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 }
