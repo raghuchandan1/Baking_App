@@ -1,22 +1,17 @@
 package com.example.bakingapp;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
 
 import com.example.bakingapp.data.Recipe;
 import com.example.bakingapp.data.Recipes;
 import com.google.gson.Gson;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,7 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 public class RecipeDetailActivityBasicTest {
     private RecipeDetailActivity mActivity;
     private boolean mIsScreenSw600dp;
-    private static Intent intent;
+    private static final Intent intent;
 
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), RecipeDetailActivity.class);
@@ -43,7 +38,7 @@ public class RecipeDetailActivityBasicTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         try (ActivityScenario<RecipeDetailActivity> scenario = ActivityScenario.launch(intent)) {
             scenario.onActivity(activity -> {
                 mActivity = activity;

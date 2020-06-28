@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".RecipeDetailActivity"
     android:orientation="horizontal"
-    android:weightSum="5">
+    android:weightSum="5"
+    android:baselineAligned="false">
 
     <FrameLayout
         android:id="@+id/recipe_detail_holder"

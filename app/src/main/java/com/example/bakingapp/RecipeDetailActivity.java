@@ -78,11 +78,11 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     }
     // Add ingredients
     public static String makeIngredientsText(List<Ingredient> ingredients) {
-        String text="";
+        StringBuilder text= new StringBuilder();
         for (Ingredient ingredient : ingredients) {
-            text+=ingredient.getQuantity()+" "+ingredient.getMeasure()+" "+ingredient.getIngredient()+System.getProperty("line.separator");
+            text.append(ingredient.getQuantity()).append(" ").append(ingredient.getMeasure()).append(" ").append(ingredient.getIngredient()).append(System.getProperty("line.separator"));
         }
-        return text;
+        return text.toString();
     }
 
     @Override

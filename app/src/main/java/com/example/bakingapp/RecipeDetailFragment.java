@@ -47,7 +47,7 @@ public class RecipeDetailFragment extends Fragment implements StepAdapter.StepAd
         }
         RecipeDetailActivity recipeDetailActivity = (RecipeDetailActivity) getActivity();
 
-        recipe = recipeDetailActivity.getRecipe();
+        recipe = RecipeDetailActivity.getRecipe();
 
 
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);

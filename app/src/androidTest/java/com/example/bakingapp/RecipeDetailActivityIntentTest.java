@@ -25,7 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 public class RecipeDetailActivityIntentTest {
     private RecipeDetailActivity mActivity;
     private boolean mIsScreenSw600dp;
-    private static Intent intent;
+    private static final Intent intent;
 
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), RecipeDetailActivity.class);
@@ -38,7 +38,7 @@ public class RecipeDetailActivityIntentTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         try (ActivityScenario<RecipeDetailActivity> scenario = ActivityScenario.launch(intent)) {
             scenario.onActivity(activity -> {
                 mActivity = activity;

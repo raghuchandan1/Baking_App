@@ -53,7 +53,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView stepsdescView;
+        final TextView stepsdescView;
 
         public StepViewHolder(@NonNull View itemView) {
             super(itemView);

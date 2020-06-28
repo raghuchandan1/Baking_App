@@ -1,19 +1,14 @@
 package com.example.bakingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
-import com.example.bakingapp.data.Recipe;
 import com.example.bakingapp.data.Recipes;
 import com.example.bakingapp.data.Step;
 
@@ -85,14 +80,14 @@ public class StepDetailActivity extends AppCompatActivity implements View.OnClic
         transaction.commit();
         if(!landscape) {
             previousButton = (Button) findViewById(R.id.button_previous);
-            previousButton.setText("Previous");
+            previousButton.setText(R.string.previous);
             Log.i("StepPositionPrevious", stepPosition + "");
             if (stepPosition == 0) {
                 previousButton.setVisibility(View.INVISIBLE);
             }
             previousButton.setOnClickListener((View.OnClickListener) this);
             nextButton = (Button) findViewById(R.id.button_next);
-            nextButton.setText("Next");
+            nextButton.setText(R.string.next);
             Log.i("StepPosition",getStepPosition()+"");
             Log.i("RecipePosition",recipePosition+"");
             Log.i("Max Steps",(Recipes.getRecipes()[recipePosition].getSteps().size() - 1)+"");

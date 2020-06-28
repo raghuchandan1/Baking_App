@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Ingredients"
+        android:text="@string/ingredients"
         android:textAlignment="textStart"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Steps"
+        android:text="@string/steps"
         android:textAlignment="textStart"
         android:textSize="25sp"
         android:textStyle="bold" />
