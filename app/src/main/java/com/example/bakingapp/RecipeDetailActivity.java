@@ -76,7 +76,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     public static void setRecipe(Recipe recipe) {
         RecipeDetailActivity.recipe = recipe;
     }
-    //TODO: Add ingredients
+    // Add ingredients
     public static String makeIngredientsText(List<Ingredient> ingredients) {
         String text="";
         for (Ingredient ingredient : ingredients) {
